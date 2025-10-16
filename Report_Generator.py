@@ -14,7 +14,7 @@ def pdf_generator(clusters, outlines , ideas):
     content.append(Paragraph('<b> Report</b>' , styles['Title']))
     content.append(Spacer(1,12))
     content.append(Paragraph(
-        f'Timestamped: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}',
+        f"Timestamped: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         styles['BodyText']
     ))
 
