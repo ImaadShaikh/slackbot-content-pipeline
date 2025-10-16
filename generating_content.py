@@ -31,8 +31,9 @@ def idea_generator(cluster_name, keywords):
         print(f"LLM failed, using failsafe: {e}")
         return rule_based_idea(cluster_name, keywords)
 
-def generating_idea_via_clusters(clusters: dict):
+def generating_idea_with_clusters(clusters: dict):
     ideas = {}
     for name, words in clusters.items():
         ideas[name] = idea_generator(name, words)
     return ideas
+
