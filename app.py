@@ -16,7 +16,7 @@ import requests
 load_dotenv()
 
 flask_app = Flask(__name__)
-handler = SlackRequestHandler(App)
+
 
 
 bolt_app = App(
@@ -24,6 +24,7 @@ bolt_app = App(
     signing_secret = os.getenv("SLACK_SIGNING_SECRET")
 )
 
+handler = SlackRequestHandler(bolt_app)
 @bolt_app.command('/keywords')
 
 def handling_keywords(ack, respond , command):
