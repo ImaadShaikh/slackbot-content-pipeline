@@ -44,12 +44,16 @@ def handling_keywords(ack, respond , command):
         outlines = gen_clusters(clusters)
 
         respond('Generating post ideas')
-        ideas = generating_idea_via_clusters(clusters)
+        ideas = generating_idea_with_clusters(clusters)
+        
         final_output = " Keywords"
-        for name in clusters.keys():
-            outline = outlines.get(name, "")
-            idea = ideas.get(name, "no idea generated")
-            final_output += f"\n\n{outline}\n\n Post Idea: {idea}\n" 
+        for name , key in clusters.items():
+            outline = outlines.get(name, "No outline found.")
+            idea = ideas.get(name, "No idea generated.")
+            final_message += f"\n\n*Cluster:* {name}\n" \
+                         f"• Keywords: {', '.join(key)}\n\n" \
+                         f"*Outline:*\n{outline}\n\n" \
+                         f"*Generated Idea:*\n{idea}\n" 
 
 
         respond('Generating pdf')
@@ -130,4 +134,5 @@ def slack_events():
 
 if __name__ == "__main__":
     print("Starting Slackbot on port 3000")
+
     flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
