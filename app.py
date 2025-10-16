@@ -8,10 +8,16 @@ from content_builder import gen_clusters , get_content
 from generating_content import generating_idea_via_clusters
 from Report_Generator import pdf_generator
 from slack_sdk import WebClient
+from flask import Flask, request
+from slack_bolt.adapter.flask import SlackRequestHandler
 
 import requests
 
 load_dotenv()
+
+flask_app = Flask(__name__)
+handler = SlackRequestHandler(app)
+
 
 app = App(
     token = os.getenv("SLACK_BOT_TOKEN"),
@@ -113,6 +119,14 @@ def formatcluster(cluster):
         message += f"\n {name}:{joined}"
     return message
 
+@flask_app.route("/", methods=["GET"])
+def home():
+    return "⚡️ Slackbot Content Pipeline is running successfully on Render!"
+
+@flask_app.route("/slack/events", methods=["POST"])
+def slack_events():
+    return handler.handle(request)
+
 if __name__ == "__main__":
-    print("bot is running")
-    app.start(port=3000)
+    print("Starting Slackbot on port 3000")
+    flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
