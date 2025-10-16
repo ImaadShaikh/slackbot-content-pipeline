@@ -5,4 +5,5 @@ requests
 scikit-learn
 numpy
 reportlab
+flask
 slack_sdk
