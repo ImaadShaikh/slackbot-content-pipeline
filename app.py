@@ -19,12 +19,12 @@ flask_app = Flask(__name__)
 handler = SlackRequestHandler(App)
 
 
-app = App(
+bolt_app = App(
     token = os.getenv("SLACK_BOT_TOKEN"),
     signing_secret = os.getenv("SLACK_SIGNING_SECRET")
 )
 
-@app.command('/keywords')
+@bolt_app.command('/keywords')
 
 def handling_keywords(ack, respond , command):
     ack()
@@ -73,7 +73,7 @@ def handling_keywords(ack, respond , command):
     else:
         respond("please upload the file") 
 
-@app.event('file_shared')
+@bolt_app.event('file_shared')
 
 def handling_file(event, client, say):
     file_id = event["file_id"]
@@ -101,7 +101,7 @@ def handling_file(event, client, say):
     else:
         say('unable to download the file. Please check')
 
-@app.command('/outline')
+@bolt_app.command('/outline')
 
 def handling_title(ack, respond, command):
     ack()
@@ -129,5 +129,4 @@ def slack_events():
 
 if __name__ == "__main__":
     print("Starting Slackbot on port 3000")
-
     flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
