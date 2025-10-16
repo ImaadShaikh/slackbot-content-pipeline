@@ -5,7 +5,7 @@ import os
 from cleaner import reading_words , clean_words
 from clustering import cluster
 from content_builder import gen_clusters , get_content
-from generating_content import generating_idea_via_clusters
+from generating_content import generating_idea_with_clusters
 from Report_Generator import pdf_generator
 from slack_sdk import WebClient
 from flask import Flask, request
@@ -136,3 +136,4 @@ if __name__ == "__main__":
     print("Starting Slackbot on port 3000")
 
     flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
+
